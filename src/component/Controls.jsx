@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import styled from "styled-components"
 import { CustomSelect } from "./CustomSelect"
 import { Search } from "./Search"
@@ -6,7 +6,7 @@ import { Search } from "./Search"
 const option = [
     { value: "Africa", label: "Africa" },
     { value: "Europa", label: "Europa" },
-    { value: "America", label: "America" },
+    { value: "Americas", label: "America" },
     { value: "Asia", label: "Asia" },
     { value: "Oceania", label: "Oceania" },
 
@@ -25,9 +25,14 @@ const Wrapper = styled.div`
     }
 `
 
-export const Control = () => {
+export const Control = ({handleSearch}) => {
     const [search, setSearch] = useState("");
-    const [region, setRegion] = useState("")
+    const [region, setRegion] = useState("");
+
+    useEffect(()=>{
+        const regionValue = region?.value || ""
+        handleSearch(region, search)
+    },[region, search])
     return (
         <Wrapper>
             <Search search={search} setSearch={setSearch} />
@@ -38,6 +43,7 @@ export const Control = () => {
                 isSearchable="false"
                 value={region}
                 onChange={setRegion}
+                
             />
         </Wrapper>
     )
