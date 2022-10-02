@@ -5,7 +5,7 @@ import { Search } from "./Search"
 
 const option = [
     { value: "Africa", label: "Africa" },
-    { value: "Europa", label: "Europa" },
+    { value: "Europe", label: "Europe" },
     { value: "Americas", label: "America" },
     { value: "Asia", label: "Asia" },
     { value: "Oceania", label: "Oceania" },
@@ -25,14 +25,15 @@ const Wrapper = styled.div`
     }
 `
 
-export const Control = ({handleSearch}) => {
+export const Control = ({handleSearch, countries}) => {
     const [search, setSearch] = useState("");
     const [region, setRegion] = useState("");
 
     useEffect(()=>{
-        const regionValue = region?.value || ""
         handleSearch(region, search)
-    },[region, search])
+    },[region, search, countries])
+
+    useEffect(()=>{},[search, ])
     return (
         <Wrapper>
             <Search search={search} setSearch={setSearch} />
